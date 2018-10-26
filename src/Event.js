@@ -16,7 +16,7 @@ export default class Event {
    * @since 1.0.0
    */
   constructor (data = {}, callee = null) {
-    Assert.instanceOf(data, 'object');
+    Assert.typeOf(data, 'object');
 
     this._data = data;
     this._callee = callee;

@@ -22,10 +22,10 @@ export default class Listener {
    * @since 1.0.0
    */
   constructor (callback, once = false, priority = 0, id = 0) {
-    Assert.instanceOf(callback, 'function');
-    Assert.instanceOf(once, 'boolean');
-    Assert.instanceOf(priority, 'number');
-    Assert.instanceOf(id, 'number');
+    Assert.typeOf(callback, 'function');
+    Assert.typeOf(once, 'boolean');
+    Assert.typeOf(priority, 'number');
+    Assert.typeOf(id, 'number');
 
     this._callback = callback;
     this._once = once;

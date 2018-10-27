@@ -1,5 +1,5 @@
-import Listener from '../src/Listener';
-import {AssertionError} from '../src/Assert';
+import Listener from '../src/Listener/Listener';
+import {AssertionError} from '../src/Assert/Assert';
 import { Event } from '../src/';
 
 describe('Tests for the Listener class.', () => {

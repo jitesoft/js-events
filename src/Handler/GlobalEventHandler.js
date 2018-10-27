@@ -61,4 +61,5 @@ export default class GlobalEventHandler {
 
 }
 
+// noinspection JSUnresolvedVariable
 GlobalEventHandler._handler = new EventHandler();

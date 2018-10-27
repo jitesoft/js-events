@@ -1,5 +1,4 @@
-import Event from './Event';
-import Assert from './Assert';
+import Assert from '../Assert/Assert';
 
 /**
  * @private
@@ -7,7 +6,6 @@ import Assert from './Assert';
  * @since 1.0.0
  */
 export default class Listener {
-
   _priority = 0;
   _once = false;
   _callback = false;

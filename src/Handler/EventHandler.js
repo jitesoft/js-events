@@ -1,5 +1,4 @@
-import Listener from './Listener';
-import Event from './Event';
+import Listener from '../Listener/Listener';
 
 /**
  * Event handler class.
@@ -10,10 +9,6 @@ import Event from './Event';
 export default class EventHandler {
   _listeners = {};
   _handlerId = 0;
-
-  constructor () {
-
-  }
 
   /**
    * Remove all listeners from the handler.
@@ -33,14 +28,15 @@ export default class EventHandler {
       return;
     }
 
-    let stop = false;
+    //    let stop = false;
     this._listeners[type] = this._listeners[type].filter((listener) => {
-      if (stop) {
+      /*if (stop) {
         return true;
-      }
+      }*/
 
-      stop = listener.invoke(event) === false;
-      return listener.once === false;
+      //  stop = listener.invoke(event) === false;
+      listener.invoke(event);
+      return !listener.once;
     });
   }
 
@@ -90,27 +86,44 @@ export default class EventHandler {
 
     let c = this._listeners[event].length;
     this._listeners[event] = (
-      typeof handler === 'number' ? ofId(handler, this._listeners[event]) : ofCb(handler, this._listeners[event])
+      !isNaN(handler) ?
+      EventHandler._ofId(handler, this._listeners[event]) :
+      EventHandler._ofCb(handler, this._listeners[event])
     );
     return c !== this._listeners[event].length;
   }
 
-}
-
-function ofId (id, list) {
-  for (let i = list.length; i-- > 0;) {
-    if (list[i].id === id) {
-      return list.splice(i, 1);
+  /**
+   *
+   * @param {number} id
+   * @param {array} list
+   * @return {array}
+   * @private
+   */
+  static _ofId (id, list) {
+    for (let i = list.length; i-- > 0;) {
+      if (list[i]._id === id) {
+        list.splice(i, 1);
+        break;
+      }
     }
+    return list;
   }
-  return list;
-}
 
-function ofCb (cb, list) {
-  for (let i = list.length; i-- > 0;) {
-    if (list[i].callback === cb) {
-      return list.splice(i, 1);
+  /**
+   * @param {function} cb
+   * @param {array} list
+   * @return {array}
+   * @private
+   */
+  static _ofCb (cb, list) {
+    for (let i = list.length; i-- > 0;) {
+      if (list[i].callback === cb) {
+        list.splice(i, 1);
+        break;
+      }
     }
+    return list;
   }
-  return list;
+
 }

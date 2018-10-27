@@ -1,9 +1,3 @@
-class AssertionError extends Error {
-  constructor(...args) {
-    super(...args)
-  }
-}
-
 /**
  * Assertion class used to throw exceptions in case a given test does not pass.
  * @private
@@ -30,9 +24,4 @@ export default class Assert {
     value instanceof type || throw new AssertionError(`Value was not an instance of ${type}`);
   }
 
-}
-
-export {
-  Assert,
-  AssertionError
 }

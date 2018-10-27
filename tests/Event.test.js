@@ -1,8 +1,6 @@
-import Event from '../src/Event';
-import { AssertionError } from '../src/Assert';
-import GlobalEventHandler from '../src/GlobalEventHandler';
-import EventHandler from '../src/EventHandler';
-
+import Event from '../src/Event/Event';
+import { AssertionError } from '../src/Assert/Assert';
+import { GlobalEventHandler } from '../src/Handler';
 
 describe('Tests for the Event class.', () => {
 

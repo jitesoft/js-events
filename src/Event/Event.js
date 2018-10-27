@@ -1,5 +1,5 @@
-import GlobalEventHandler from './GlobalEventHandler';
-import Assert from './Assert';
+import GlobalEventHandler from '../Handler/GlobalEventHandler';
+import Assert from '../Assert/Assert';
 
 /**
  * Basic event class.

@@ -9,7 +9,7 @@ test:
   variables:
     NODE_ENV: development
   before_script:
-    - npm install --dev
+    - npm install
   script:
     - npm run test
 
@@ -38,6 +38,8 @@ build:
 deploy:
   stage: deploy
   image: jitesoft/node-base:latest
+  variables:
+    GIT_STRATEGY: none
   dependencies:
     - build
   before_script:

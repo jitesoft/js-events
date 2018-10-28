@@ -27,11 +27,10 @@ build:
     - mv dist package
     - mv src package
     - mv package.templ package/package.json
-    - sed -e "s/\${version}/${CI_COMMIT_TAG}/" package/package.json
+    - cat package.tmpl | sed -e "s/\${version}/${CI_COMMIT_TAG}/" > package/package.json
   artifacts:
     paths: [package]
   only:
    - tags
-
 
 

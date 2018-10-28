@@ -3,7 +3,7 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const Merge = require('webpack-merge');
 const Webpack = require('webpack');
 
-const base = {
+module.exports = {
   mode: 'production',
   plugins: [],
   entry: [
@@ -25,24 +25,3 @@ const base = {
     ]
   }
 };
-
-module.exports = [
-  Merge.smart(base, {
-    optimization: {
-      minimize: false
-    }
-  }),
-  Merge.smart(base, {
-    optimization: {
-      minimize: true,
-      minimizer: [new UglifyPlugin({
-        uglifyOptions: {
-          comments: false,
-          mangle: true,
-          keep_fnames: false
-
-        }
-      })]
-    }
-  })
-];

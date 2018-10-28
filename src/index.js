@@ -1,8 +1,7 @@
 import Event from './Event/Event';
-import {GlobalEventHandler, EventHandler} from './Handler';
+import EventHandler from './Handler/EventHandler';
 
 export {
   Event,
-  EventHandler,
-  GlobalEventHandler
+  EventHandler
 }

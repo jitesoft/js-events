@@ -1,4 +1,3 @@
-import GlobalEventHandler from '../Handler/GlobalEventHandler';
 import Assert from '../Assert/Assert';
 
 /**
@@ -20,15 +19,6 @@ export default class Event {
 
     this._data = data;
     this._callee = callee;
-  }
-
-  /**
-   * Emit the event, either by passing a handler or to the global handler if one exists.
-   * @param {string} event Event name.
-   * @since 1.0.0
-   */
-  emit(event) {
-    GlobalEventHandler.emit(event, this);
   }
 
   /**

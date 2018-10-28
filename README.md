@@ -6,8 +6,7 @@ A simple event handling system for browser and node alike.
 
 ## Classes
 
-The event handler class is the main instance which handles listening and emitting of events.  
-A `GlobalEventHandler` is exposed and intended to be used globally, but it's possible to create multiple handlers to be used in different ways.
+The event handler class is the main instance which handles listening and emitting of events.
 
 ### EventHandler
 
@@ -41,22 +40,22 @@ Emits a event and fires each listener that listens to the given event.
 When emitting a event, the `Event` class is used as a object which passes the data. It accepts a `data` object, which can be accessed
 via the exposed `data` getter and an optional `callee` argument which can be used to pass information (or a reference) to the calling object.  
 
-A `emit` method is exposed which will emit the event to the `GlobalEventHandler`.
-
 ---
 
 ## Example
 
-The following example shows the most simple way create a listener and emit an event to it through the global event handler.
+The following example shows the most simple way create a handler and a listener and emit an event.
 
 ```javascript
-import { GlobalEventHandler, Event } from '@jitesoft/events';
+import { EventHandler, Event } from '@jitesoft/events';
 
-GlobalEventHandler.on('test-event', (event) => {
+const handler = new Handler();
+
+handler.on('test-event', (event) => {
   console.log(event.data.message);
 });
 
-GlobalEventHandler.emit(new Event({
+handler.emit(new Event({
   message: 'This is a simple example...'
 }));
 ```

@@ -2,10 +2,10 @@
   "name": "@jitesoft/events",
   "version": "1.0.0",
   "description": "Classes for creation of custom events, listeners and emitting of said events.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "semistandard /src && jest",
-    "build": "cross-env NODE_ENV=production && webpack"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,8 @@
   "keywords": [
     "events",
     "simple",
-    "custom"
+    "custom",
+    "jitesoft"
   ],
   "author": "Johannes Tegnér <johannes@jitesoft.com>",
   "license": "MIT",
@@ -33,8 +34,8 @@
     "@babel/runtime": "^7.1.2",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.23.0",
-    "clean-webpack-plugin": "^0.1.19",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.1.0",

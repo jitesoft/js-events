@@ -1,17 +1,15 @@
-const Path               = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyPlugin       = require('uglifyjs-webpack-plugin');
+const Path = require('path');
+const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const Merge = require('webpack-merge');
+const Webpack = require('webpack');
 
-module.exports = {
+const base = {
   mode: 'production',
-  target: 'web',
-  plugins: [
-    new CleanWebpackPlugin(Path.join(__dirname, '/dist')),
-    new UglifyPlugin()
-  ],
+  plugins: [],
   entry: [
     Path.join(__dirname, 'src', 'index.js')
   ],
+  target: 'web',
   output: {
     libraryTarget: 'umd',
     library: 'Event',
@@ -27,3 +25,24 @@ module.exports = {
     ]
   }
 };
+
+module.exports = [
+  Merge.smart(base, {
+    optimization: {
+      minimize: false
+    }
+  }),
+  Merge.smart(base, {
+    optimization: {
+      minimize: true,
+      minimizer: [new UglifyPlugin({
+        uglifyOptions: {
+          comments: false,
+          mangle: true,
+          keep_fnames: false
+
+        }
+      })]
+    }
+  })
+];

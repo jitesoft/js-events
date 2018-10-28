@@ -1,6 +1,5 @@
 import Event from '../src/Event/Event';
 import { AssertionError } from '../src/Assert/Assert';
-import { GlobalEventHandler } from '../src/Handler';
 
 describe('Tests for the Event class.', () => {
 
@@ -24,22 +23,6 @@ describe('Tests for the Event class.', () => {
       event = new Event();
       expect(event.callee).toBeNull();
     });
-  });
-
-  describe('Emit tests.', () => {
-
-    test('Emits to a global handler.', () => {
-      const event = new Event({result: true});
-      const mock = jest.fn(() => {});
-
-      GlobalEventHandler.on('test', mock);
-      event.emit('test');
-      event.emit('no-test');
-
-      expect(mock).toHaveBeenCalledTimes(1);
-      GlobalEventHandler.clear();
-    });
-
   });
 
 });

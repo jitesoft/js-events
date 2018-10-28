@@ -26,11 +26,27 @@ build:
     - mv README.md package
     - mv dist package
     - mv src package
-    - mv package.templ package/package.json
     - cat package.templ | sed -e "s/\${version}/${CI_COMMIT_TAG}/" > package/package.json
   artifacts:
-    paths: [package]
+    when: on_success
+    expire_in: 1 day
+    paths:
+      - package
   only:
    - tags
 
-
+deploy:
+  stage: deploy
+  image: jitesoft/node-base:latest
+  dependencies:
+    - build
+  before_script:
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+    - npm whoami
+  script:
+    - cd package
+    - npm publish
+  after_script:
+    - rm -f ~/.npmrc
+  only:
+    - tags

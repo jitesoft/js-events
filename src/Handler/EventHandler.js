@@ -12,6 +12,7 @@ export default class EventHandler {
 
   /**
    * Remove all listeners from the handler.
+   * @since 1.0.0
    */
   clear () {
     delete this._listeners;
@@ -22,6 +23,7 @@ export default class EventHandler {
    * Emits a event and invokes all handlers listening for it.
    * @param {string} type Event type.
    * @param {Event} event The event to emit.
+   * @since 1.0.0
    */
   emit (type, event) {
     if (!(type in this._listeners)) {

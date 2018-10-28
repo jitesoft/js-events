@@ -1,14 +1,20 @@
 /**
  * Static event handler to be used globally.
+ * @since 1.0.0
  */
 import EventHandler from './EventHandler';
 
+/**
+ * A static, global event handler.
+ * @since 1.0.0
+ */
 export default class GlobalEventHandler {
   /** @private */
   static _handler;
 
   /**
    * Remove all listeners from the handler.
+   * @since 1.0.0
    */
   static clear () {
     GlobalEventHandler._handler.clear();
@@ -18,6 +24,7 @@ export default class GlobalEventHandler {
    * Emits a event and invokes all handlers listening for it.
    * @param {string} type Event type.
    * @param {Event} event
+   * @since 1.0.0
    */
   static emit (type, event) {
     GlobalEventHandler._handler.emit(type, event);

@@ -47,7 +47,7 @@ deploy:
     - npm whoami
   script:
     - cd package
-    - npm publish
+    - npm publish --access public
   after_script:
     - rm -f ~/.npmrc
   only:

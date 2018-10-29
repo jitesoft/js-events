@@ -30,14 +30,15 @@ export default class EventHandler {
       return;
     }
 
-    //    let stop = false;
+    let stop = false;
     this._listeners[type] = this._listeners[type].filter((listener) => {
-      /*if (stop) {
+/*      if (stop) {
+        // Return true to make sure that fire once listeners are not invoked
+        // but the object still stay in the list.
         return true;
-      }*/
-
-      //  stop = listener.invoke(event) === false;
-      listener.invoke(event);
+      }
+*/
+      stop = listener.invoke(event) === false; // Must be exactly false to count.
       return !listener.once;
     });
   }
@@ -58,7 +59,7 @@ export default class EventHandler {
 
     let id = this._handlerId++;
     this._listeners[event].push(new Listener(handler, once, priority));
-    this._listeners[event].sort((a, b) => a.priority - b.priority);
+    this._listeners[event].sort((a, b) => b.priority - a.priority);
     return id;
   }
 

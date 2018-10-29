@@ -46,6 +46,25 @@ describe('Tests for the EventHandler class.', () => {
       expect(listener).toHaveBeenCalledTimes(0);
     });
 
+    test('Emit does not bubble if callback returns false.', () => {
+
+      const listener = jest.fn(e => true);
+      const listener2 = jest.fn(e => undefined);
+      const listener3 = jest.fn(e => false);
+
+      // Prio results: true => undefined => false => not called.
+      handler.on('test', listener, 5);
+      handler.on('test', listener2, 4);
+      handler.on('test', listener3, 3);
+      handler.on('test', listener, 2);
+
+      handler.emit('test', new Event());
+
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listener2).toHaveBeenCalledTimes(1);
+      expect(listener3).toHaveBeenCalledTimes(1);
+    });
+
   });
 
   describe('On tests.', () => {
@@ -74,21 +93,20 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('On with priority sorts the events correctly.', () => {
-      let fn = jest.fn(() => 0);
-      let fn1 = jest.fn(() => 1);
-      let fn2 = jest.fn(() => 2);
-      let fn3 = jest.fn(() => 3);
+      let fn = jest.fn(e => 0);
+      let fn1 = jest.fn(e => 1);
+      let fn2 = jest.fn(e => 2);
+      let fn3 = jest.fn(e => 3);
 
       handler.on('test', fn1, 3);
       handler.on('test', fn, 4);
       handler.on('test', fn3, 1);
       handler.on('test', fn2, 2);
 
-      handler.emit('test', new Event());
-      expect(fn).toHaveReturnedWith(0);
-      expect(fn1).toHaveReturnedWith(1);
-      expect(fn2).toHaveReturnedWith(2);
-      expect(fn3).toHaveReturnedWith(3);
+      expect(handler._listeners['test'][0].callback).toBe(fn);
+      expect(handler._listeners['test'][1].callback).toBe(fn1);
+      expect(handler._listeners['test'][2].callback).toBe(fn2);
+      expect(handler._listeners['test'][3].callback).toBe(fn3);
     });
 
   });

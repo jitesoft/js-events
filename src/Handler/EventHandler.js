@@ -32,12 +32,12 @@ export default class EventHandler {
 
     let stop = false;
     this._listeners[type] = this._listeners[type].filter((listener) => {
-/*      if (stop) {
+      if (stop) {
         // Return true to make sure that fire once listeners are not invoked
         // but the object still stay in the list.
         return true;
       }
-*/
+
       stop = listener.invoke(event) === false; // Must be exactly false to count.
       return !listener.once;
     });

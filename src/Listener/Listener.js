@@ -8,7 +8,7 @@ import Assert from '../Assert/Assert';
 export default class Listener {
   _priority = 0;
   _once = false;
-  _callback = false;
+  _callback = null;
   _id = null;
 
   /**

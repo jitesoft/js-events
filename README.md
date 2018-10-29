@@ -19,6 +19,8 @@ It's possible to set a priority on the callback by changing the priority `number
 determines if the callback should be removed after first run or not and defaults to `false`.  
 The method returns a handle id (`number`) which can be used to remove the event listener if wanted.
 
+If the listener callback returns FALSE, the event will not bubble to the next handler.
+
 `once(string: eventName, function: listener, number: priority): number`
 
 The `once` method does pretty much the same as `on`, but is always a `fire once` listener type.

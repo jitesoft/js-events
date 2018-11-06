@@ -5,7 +5,8 @@
             {
                 "useBuiltIns": "usage",
                 "targets": {
-                    "browsers": "> 0.25%, not dead"
+                    "browsers": "cover 90%, not dead",
+                    "node": true
                 }
             }
         ]

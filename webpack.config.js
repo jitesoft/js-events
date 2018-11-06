@@ -12,7 +12,8 @@ module.exports = {
   output: {
     libraryTarget: 'umd',
     library: 'Event',
-    filename: 'index.js'
+    filename: 'index.js',
+    globalObject: "typeof self !== 'undefined' ? self : this"
   },
   module: {
     rules: [

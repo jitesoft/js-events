@@ -7,6 +7,9 @@
     "test": "semistandard /src && jest",
     "build": "cross-env NODE_ENV=production && webpack"
   },
+  "esnext": {
+    "main": "src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:jitesoft/open-source/javascript/events.git"

@@ -57,7 +57,7 @@ handler.on('test-event', (event) => {
   console.log(event.data.message);
 });
 
-handler.emit(new Event({
+handler.emit('test-event', new Event({
   message: 'This is a simple example...'
 }));
 ```

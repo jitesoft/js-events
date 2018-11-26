@@ -1,4 +1,4 @@
-import Listener from '../Listener/Listener';
+import Listener from './Listener';
 
 /**
  * Event handler class.

@@ -10,11 +10,11 @@ export default class Assert {
    * Check if a object is of a given type using typeof.
    * @param {*} value
    * @param {string} type
-   * @throws AssertionError
+   * @throws Error
    * @since 1.0.0
    */
   static typeOf(value, type) {
-    typeof value === type || throw new AssertionError(`Value not of type ${type}`)
+    typeof value === type || throw new Error(`Value not of type ${type}`)
   }
 
   /**
@@ -22,9 +22,10 @@ export default class Assert {
    * @param {*} value
    * @param {*} type
    * @since 1.0.0
+   * @throws Error
    */
   static instanceOf(value, type) {
-    value instanceof type || throw new AssertionError(`Value was not an instance of ${type}`);
+    value instanceof type || throw new Error(`Value was not an instance of ${type}`);
   }
 
 }

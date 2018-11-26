@@ -1,5 +1,5 @@
-import Event from './Event/Event';
-import EventHandler from './Handler/EventHandler';
+import Event from './Event';
+import EventHandler from './EventHandler';
 
 export {
   Event,

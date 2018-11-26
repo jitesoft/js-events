@@ -1,5 +1,5 @@
-import Event from '../src/Event/Event';
-import { AssertionError } from '../src/Assert/Assert';
+import Event from '../src/Event';
+import { AssertionError } from '../src/Assert';
 
 describe('Tests for the Event class.', () => {
 

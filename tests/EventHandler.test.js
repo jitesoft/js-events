@@ -1,5 +1,5 @@
-import EventHandler from '../src/Handler/EventHandler';
-import Event from '../src/Event/Event';
+import EventHandler from '../src/EventHandler';
+import Event from '../src/Event';
 
 describe('Tests for the EventHandler class.', () => {
 

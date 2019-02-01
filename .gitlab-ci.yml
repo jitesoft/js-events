@@ -1,7 +1,13 @@
+include:
+  - https://gitlab.com/jitesoft/gitlab-ci-lib/raw/master/code_quality.yml
+  - https://gitlab.com/jitesoft/gitlab-ci-lib/raw/master/license_management.yml
+  - https://gitlab.com/jitesoft/gitlab-ci-lib/raw/master/dependency_scanning.yml
+
 stages:
   - test
   - build
   - deploy
+  - analyse
 
 test:
   stage: test
@@ -12,6 +18,18 @@ test:
     - npm install
   script:
     - npm run test
+
+quality:
+  extends: .code_quality
+  stage: analyse
+
+dependencies:
+  extends: .dependency_scanning
+  stage: analyse
+
+license:
+  extends: .license_management
+  stage: analyse
 
 build:
   stage: build
@@ -52,3 +70,4 @@ deploy:
     - rm -f ~/.npmrc
   only:
     - tags
+

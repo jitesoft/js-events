@@ -24,7 +24,7 @@ deploy:
     - npm whoami
     - npm ci
   script:
-    - mv dist/index.js ./index.js
+    - npm run build
     - npm config set git-tag-version false
     - npm version ${CI_COMMIT_TAG}
     - npm publish --access public

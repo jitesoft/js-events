@@ -1,12 +1,10 @@
-import Assert from './Assert';
-
 /**
  * Basic event class.
  * @since 1.0.0
  */
 export default class Event {
-  _data = {};
-  _callee = null;
+  #data = {};
+  #callee = null;
 
   /**
    * Create a event instance.
@@ -15,10 +13,8 @@ export default class Event {
    * @since 1.0.0
    */
   constructor (data = {}, callee = null) {
-    Assert.typeOf(data, 'object');
-
-    this._data = data;
-    this._callee = callee;
+    this.#data = data;
+    this.#callee = callee;
   }
 
   /**
@@ -26,17 +22,16 @@ export default class Event {
    * @return {*}
    * @since 1.0.0
    */
-  get callee() {
-    return this._callee;
+  get callee () {
+    return this.#callee;
   }
 
   /**
    * Event data
-   * @return {*}
+   * @return {Object}
    * @since 1.0.0
    */
-  get data() {
-    return this._data;
+  get data () {
+    return this.#data;
   }
-
 }

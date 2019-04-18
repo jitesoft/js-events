@@ -7,31 +7,44 @@ import Listener from './Listener';
  * @since 1.0.0
  */
 export default class EventHandler {
-  _listeners = {};
-  _handlerId = 0;
+  #listeners = {};
+  #handlerId = 0;
+
+  constructor () {
+    this.#listeners = {};
+    this.#handlerId = 0;
+  }
+
+  /**
+   * @internal
+   * @return {Array<Listener>}
+   * @readonly
+   */
+  get listeners () {
+    return this.#listeners;
+  }
 
   /**
    * Remove all listeners from the handler.
    * @since 1.0.0
    */
   clear () {
-    delete this._listeners;
-    this._listeners = {};
+    this.#listeners = {};
   }
 
   /**
    * Emits a event and invokes all handlers listening for it.
-   * @param {string} type Event type.
+   * @param {String} type Event type.
    * @param {Event} event The event to emit.
    * @since 1.0.0
    */
   emit (type, event) {
-    if (!(type in this._listeners)) {
+    if (!(type in this.#listeners)) {
       return;
     }
 
     let stop = false;
-    this._listeners[type] = this._listeners[type].filter((listener) => {
+    this.#listeners[type] = this.#listeners[type].filter((listener) => {
       if (stop) {
         // Return true to make sure that fire once listeners are not invoked
         // but the object still stay in the list.
@@ -45,88 +58,58 @@ export default class EventHandler {
 
   /**
    * Creates a event listener for a given event.
-   * @param {string} event Event to listen for.
-   * @param {function} handler Callback to fire on invocation.
-   * @param {number} [priority] Listener priority (0 lowest).
-   * @param {boolean} [once] If the listener should be removed after invocation @see once
-   * @return {number} Listener id. Could be stored for easy removal.
+   * @param {String} event Event to listen for.
+   * @param {Function} handler Callback to fire on invocation.
+   * @param {Number} [priority] Listener priority (0 lowest).
+   * @param {Boolean} [once] If the listener should be removed after invocation @see once
+   * @return {Number} Listener id. Could be stored for easy removal.
    * @since 1.0.0
    */
-  on(event, handler, priority = 0, once = false) {
-    if (!(event in this._listeners)) {
-      this._listeners[event] = [];
+  on (event, handler, priority = 0, once = false) {
+    if (!(event in this.#listeners)) {
+      this.#listeners[event] = [];
     }
 
-    let id = this._handlerId++;
-    this._listeners[event].push(new Listener(handler, once, priority));
-    this._listeners[event].sort((a, b) => b.priority - a.priority);
+    let id = this.#handlerId++;
+    this.#listeners[event].push(new Listener(handler, once, priority, id));
+    this.#listeners[event].sort((a, b) => b.priority - a.priority);
     return id;
   }
 
   /**
    * Create a fire-once event listener that will be removed after invocation.
-   * @param {string} event Event name.
-   * @param {function} handler Callback to fire on invocation.
-   * @param {number} priority Listener priority (0 lowest).
-   * @returns {number} Listener id. Could be stored for easy removal.
+   * @param {String} event Event name.
+   * @param {Function} handler Callback to fire on invocation.
+   * @param {Number} priority Listener priority (0 lowest).
+   * @returns {Number} Listener id. Could be stored for easy removal.
    * @since 1.0.0
    */
-  once(event, handler, priority = 0) {
+  once (event, handler, priority = 0) {
     return this.on(event, handler, priority, true);
   }
 
   /**
    * Removes listener from the event handler.
-   * @param {string} event Event name.
-   * @param {function|number} handler Handler as id or callback.
-   * @return {boolean} True if removed, else false.
+   * @param {String} event Event name.
+   * @param {Function|Number} handler Handler as id or callback.
+   * @return {Boolean} True if removed, else false.
    * @since 1.0.0
    */
-  off(event, handler) {
-    if (!(event in this._listeners)) {
+  off (event, handler) {
+    if (!(event in this.#listeners)) {
       return false;
     }
 
-    let c = this._listeners[event].length;
-    this._listeners[event] = (
-      !isNaN(handler) ?
-      EventHandler._ofId(handler, this._listeners[event]) :
-      EventHandler._ofCb(handler, this._listeners[event])
-    );
-    return c !== this._listeners[event].length;
+    let c = this.#listeners[event].length;
+    this.#listeners[event] = isNaN(handler) ? ofCb(handler, this.#listeners[event]) : ofId(handler, this.#listeners[event]);
+    return c !== this.#listeners[event].length;
   }
-
-  /**
-   *
-   * @param {number} id
-   * @param {array} list
-   * @return {array}
-   * @private
-   */
-  static _ofId (id, list) {
-    for (let i = list.length; i-- > 0;) {
-      if (list[i]._id === id) {
-        list.splice(i, 1);
-        break;
-      }
-    }
-    return list;
-  }
-
-  /**
-   * @param {function} cb
-   * @param {array} list
-   * @return {array}
-   * @private
-   */
-  static _ofCb (cb, list) {
-    for (let i = list.length; i-- > 0;) {
-      if (list[i].callback === cb) {
-        list.splice(i, 1);
-        break;
-      }
-    }
-    return list;
-  }
-
 }
+
+const ofCb = (callback, list) => {
+  return list.filter(handler => handler.callback !== callback);
+};
+
+const ofId = (id, list) => {
+  return list.filter(handler => handler.id !== id);
+};

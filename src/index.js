@@ -4,4 +4,4 @@ import EventHandler from './EventHandler';
 export {
   Event,
   EventHandler
-}
+};

@@ -1,27 +1,22 @@
 import Listener from '../src/Listener';
-import {AssertionError} from '../src/Assert';
 import { Event } from '../src/';
 
 describe('Tests for the Listener class.', () => {
 
   describe('Constructor tests.', () => {
     test('Callback must be function', () => {
-      expect(() => new Listener('string')).toThrowError(AssertionError);
       expect(() => new Listener(() => {})).toBeDefined();
     });
 
     test('Once must be bool', () => {
-      expect(() => new Listener(() => {}, 'string')).toThrowError(AssertionError);
       expect(() => new Listener(() => {}, true)).toBeDefined();
     });
 
     test('Priority must be number', () => {
-      expect(() => new Listener(() => {}, true, 'string')).toThrowError(AssertionError);
       expect(() => new Listener(() => {}, true, 1)).toBeDefined();
     });
 
     test('Id must be number.', () => {
-      expect(() => new Listener(() => {}, true, 1, 'string')).toThrowError(AssertionError);
       expect(() => new Listener(() => {}, true, 1, 1)).toBeDefined();
     });
   });

@@ -1,52 +1,54 @@
-import Assert from './Assert';
-
 /**
- * @private
+ * @internal
  * @description Class storing data about a given event listener.
  * @since 1.0.0
  */
 export default class Listener {
-  _priority = 0;
-  _once = false;
-  _callback = null;
-  _id = null;
+  #priority = 0;
+  #once = false;
+  #callback;
+  #id = null;
 
   /**
    * Create a event handler.
-   * @param {function} callback Callback to fire on invocation.
-   * @param {boolean} once If event is one time only or not.
-   * @param {number} priority Priority of the event (0 is lowest).
-   * @param {number} id Handler ID.
+   * @param {Function} callback Callback to fire on invocation.
+   * @param {Boolean} once If event is one time only or not.
+   * @param {Number} priority Priority of the event (0 is lowest).
+   * @param {Number} id Handler ID.
    * @since 1.0.0
    */
   constructor (callback, once = false, priority = 0, id = 0) {
-    Assert.typeOf(callback, 'function');
-    Assert.typeOf(once, 'boolean');
-    Assert.typeOf(priority, 'number');
-    Assert.typeOf(id, 'number');
+    this.#callback = callback;
+    this.#once = once;
+    this.#priority = priority;
+    this.#id = id;
+  }
 
-    this._callback = callback;
-    this._once = once;
-    this._priority = priority;
-    this._id = id;
+  /**
+   * Get handler ID of the event listener.
+   * @return {Number}
+   * @since 1.2.0
+   */
+  get id () {
+    return this.#id;
   }
 
   /**
    * Event priority (0 is lowest priority and will be last in list)
-   * @return {number}
+   * @return {Number}
    * @since 1.0.0
    */
-  get priority() {
-    return this._priority;
+  get priority () {
+    return this.#priority;
   }
 
   /**
    * If the event is a one time event only or not.
-   * @return {boolean}
+   * @return {Boolean}
    * @since 1.0.0
    */
   get once () {
-    return this._once;
+    return this.#once;
   }
 
   /**
@@ -55,16 +57,15 @@ export default class Listener {
    * @since 1.0.0
    */
   invoke (event) {
-    return this._callback(event);
+    return this.#callback(event);
   }
 
   /**
    * Get the callback handler is using.
-   * @return {function}
+   * @return {Function}
    * @since 1.0.0
    */
   get callback () {
-    return this._callback;
+    return this.#callback;
   }
-
 }

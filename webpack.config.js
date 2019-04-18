@@ -1,11 +1,11 @@
+/* eslint-disable */
 const Path = require('path');
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  plugins: [
-    new UglifyPlugin()
-  ],
+  optimization: {
+    minimize: true
+  },
   entry: [
     Path.join(__dirname, 'src', 'index.js')
   ],

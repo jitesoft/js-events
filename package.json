@@ -1,7 +1,7 @@
 {
   "name": "@jitesoft/events",
   "description": "A simple cross-env event handler with custom events.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "readmeFilename": "README.md",
   "license": "MIT",
   "author": {

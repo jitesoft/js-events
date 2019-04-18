@@ -2,7 +2,6 @@ import Listener from '../src/Listener';
 import { Event } from '../src/';
 
 describe('Tests for the Listener class.', () => {
-
   describe('Constructor tests.', () => {
     test('Callback must be function', () => {
       expect(() => new Listener(() => {})).toBeDefined();
@@ -22,7 +21,6 @@ describe('Tests for the Listener class.', () => {
   });
 
   describe('Getter tests.', () => {
-
     test('Return value of callback', () => {
       let listener = new Listener(() => 'abc');
       expect(listener.callback).toBeInstanceOf(Function);
@@ -46,7 +44,6 @@ describe('Tests for the Listener class.', () => {
       listener = new Listener(() => {}, false);
       expect(listener.priority).toBe(0);
     });
-
   });
 
   describe('Invocation test.', () => {
@@ -57,9 +54,8 @@ describe('Tests for the Listener class.', () => {
       });
 
       const fn = jest.fn((event) => listener.invoke(event));
-      fn(new Event({'a':'b'}));
+      fn(new Event({ 'a': 'b' }));
       expect(fn).toHaveReturnedWith('hej');
     });
   });
-
 });

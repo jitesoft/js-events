@@ -1,7 +1,6 @@
 {
   "name": "@jitesoft/events",
-  "version": "1.0.0",
-  "description": "Classes for creation of custom events, listeners and emitting of said events.",
+  "description": "A simple cross-env event handler with custom events.",
   "main": "dist/index.js",
   "readmeFilename": "README.md",
   "license": "MIT",
@@ -11,7 +10,7 @@
     "name": "Johannes Tegnér"
   },
   "scripts": {
-    "test": "eslint src/ && jest",
+    "test": "eslint tests/ src/ && jest",
     "build": "cross-env NODE_ENV=production webpack -p"
   },
   "esnext": "src/index.js",
@@ -24,7 +23,9 @@
   },
   "keywords": [
     "events",
-    "custom",
+    "eventhandler",
+    "listener",
+    "subscriber",
     "jitesoft",
     "node",
     "browser"

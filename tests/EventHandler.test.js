@@ -9,22 +9,19 @@ describe('Tests for the EventHandler class.', () => {
   });
 
   describe('Clear tests.', () => {
-
     test('listeners is empty after clear.', () => {
-      expect(Object.keys(handler.listeners).length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.on('test', () => {});
       handler.on('test', () => {});
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(2);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(2);
       handler.clear();
-      expect(Object.keys(handler.listeners).length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(0);
       expect(handler.listeners['test']).toBeUndefined();
     });
-
   });
 
   describe('Emit tests.', () => {
-
     test('Emit calls listeners.', () => {
       const listener1 = jest.fn();
       const listener2 = jest.fn();
@@ -46,7 +43,6 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('Emit does not bubble if callback returns false.', () => {
-
       const listener = jest.fn(e => true);
       const listener2 = jest.fn(e => undefined);
       const listener3 = jest.fn(e => false);
@@ -63,18 +59,16 @@ describe('Tests for the EventHandler class.', () => {
       expect(listener2).toHaveBeenCalledTimes(1);
       expect(listener3).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe('On tests.', () => {
-
     test('On adds a listener.', () => {
       let fn = () => {};
 
-      expect(Object.keys(handler.listeners).length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.on('test', fn);
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(1);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(1);
       expect(handler.listeners['test'][0].callback).toBe(fn);
     });
 
@@ -83,8 +77,8 @@ describe('Tests for the EventHandler class.', () => {
 
       handler.on('test', fn);
 
-      handler.emit('test', new Event({a: 1}));
-      handler.emit('test', new Event({a: 2}));
+      handler.emit('test', new Event({ a: 1 }));
+      handler.emit('test', new Event({ a: 2 }));
 
       expect(fn).toHaveBeenCalledTimes(2);
       expect(fn).toHaveNthReturnedWith(1, 1);
@@ -107,40 +101,35 @@ describe('Tests for the EventHandler class.', () => {
       expect(handler.listeners['test'][2].callback).toBe(fn2);
       expect(handler.listeners['test'][3].callback).toBe(fn3);
     });
-
   });
 
   describe('Off tests.', () => {
-
     test('Off removes listener by handle.', () => {
       let handle = handler.on('test', () => {});
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(1);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(1);
       handler.off('test', handle);
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(0);
     });
 
     test('Off removes listener by callback', () => {
-
       let cb = () => {};
       handler.on('test', cb);
-      expect(Object.keys(handler.listeners).length).toBe(1);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
       handler.off('test', cb);
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(0);
     });
-
   });
 
   describe('Once tests.', () => {
-
     test('Once adds a listener.', () => {
       let fn = () => {};
-      expect(Object.keys(handler.listeners).length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.once('test', fn);
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(1);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(1);
       expect(handler.listeners['test'][0].callback).toBe(fn);
     });
 
@@ -149,14 +138,14 @@ describe('Tests for the EventHandler class.', () => {
 
       handler.once('test', fn);
 
-      handler.emit('test', new Event({a: 2}));
-      handler.emit('test', new Event({a: 1}));
+      handler.emit('test', new Event({ a: 2 }));
+      handler.emit('test', new Event({ a: 1 }));
 
       expect(fn).toHaveBeenCalledTimes(1);
       expect(fn).toHaveNthReturnedWith(1, 2);
 
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(0);
     });
 
     test('Once with priority sorts the events correctly.', () => {
@@ -176,11 +165,8 @@ describe('Tests for the EventHandler class.', () => {
       expect(fn2).toHaveReturnedWith(2);
       expect(fn3).toHaveReturnedWith(3);
 
-
-      expect(Object.keys(handler.listeners).length).toBe(1);
-      expect(handler.listeners['test'].length).toBe(0);
+      expect(Object.keys(handler.listeners)).toHaveLength(1);
+      expect(handler.listeners['test']).toHaveLength(0);
     });
-
   });
-
 });

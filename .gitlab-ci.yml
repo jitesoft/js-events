@@ -32,4 +32,3 @@ deploy:
     - rm -f ~/.npmrc
   only:
     - tags
-

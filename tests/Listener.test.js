@@ -20,6 +20,16 @@ describe('Tests for the Listener class.', () => {
     });
   });
 
+  describe('Async listener invocation.', () => {
+    test('Should be called async.', async () => {
+      const cb = jest.fn(async () => Promise.resolve());
+      const listener = new Listener(cb);
+      await listener.invokeAsync(new Event());
+
+      expect(cb).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('Getter tests.', () => {
     test('Return value of callback', () => {
       let listener = new Listener(() => 'abc');

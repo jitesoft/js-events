@@ -59,6 +59,69 @@ describe('Tests for the EventHandler class.', () => {
       expect(listener2).toHaveBeenCalledTimes(1);
       expect(listener3).toHaveBeenCalledTimes(1);
     });
+
+    test('Emit does not throw errors by default.', async () => {
+      const cb = jest.fn(async () => {
+        throw new Error('Hi!');
+      });
+
+      handler.on('test', cb);
+
+      await expect(handler.emitAsync('test', new Event())).resolves.toBe(undefined);
+      expect(cb).toHaveBeenCalledTimes(1);
+    });
+
+    test('Emit does throw errors if set to.', async () => {
+      const cb = jest.fn(async () => {
+        throw new Error('Hi!');
+      });
+
+      handler.on('test', cb);
+
+      await expect(handler.emitAsync('test', new Event(), true)).rejects.toThrow('Hi!');
+      expect(cb).toHaveBeenCalledTimes(1);
+    });
+
+  });
+
+  describe('Async Emit tests.', () => {
+    test('Emit calls listeners.', async () => {
+      const listener1 = jest.fn();
+      const listener2 = jest.fn();
+
+      handler.on('test', listener1);
+      handler.on('test', listener2);
+
+      await handler.emitAsync('test', new Event());
+
+      expect(listener1).toHaveBeenCalledTimes(1);
+      expect(listener2).toHaveBeenCalledTimes(1);
+    });
+
+    test('Emit does not call listeners on other events.', async () => {
+      const listener = jest.fn();
+      handler.on('test', listener);
+      await handler.emitAsync('not-test', new Event());
+      expect(listener).toHaveBeenCalledTimes(0);
+    });
+
+    test('Emit does not bubble if callback returns false.', async () => {
+      const listener = jest.fn(e => true);
+      const listener2 = jest.fn(e => undefined);
+      const listener3 = jest.fn(e => false);
+
+      // Prio results: true => undefined => false => not called.
+      handler.on('test', listener, 5);
+      handler.on('test', listener2, 4);
+      handler.on('test', listener3, 3);
+      handler.on('test', listener, 2);
+
+      await handler.emitAsync('test', new Event());
+
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listener2).toHaveBeenCalledTimes(1);
+      expect(listener3).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('On tests.', () => {

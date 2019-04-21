@@ -52,6 +52,17 @@ export default class Listener {
   }
 
   /**
+   * Asynchronous invoke method.
+   *
+   * @param {Event} event
+   * @return {Promise<Boolean>}
+   * @since 1.3
+   */
+  async invokeAsync (event) {
+    return this.#callback(event);
+  }
+
+  /**
    * Invoke the listener.
    * @param {Event} event
    * @since 1.0.0

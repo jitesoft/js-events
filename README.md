@@ -37,6 +37,15 @@ The `off` method removes a given listener from the handler either by its handle 
 
 Emits a event and fires each listener that listens to the given event.
 
+`emitAsync(string: eventName, Event: event, boolean: throw = false): Promise<void>`
+
+The emitAsync method works just like the Emit method, with the exception that it is an async method.  
+When used, it will group all the listeners by their priority and call them in batches, and just as with `emit`, if 
+one of the callback returns false, it will not call the next batch.
+
+It uses the `Promise.allSettled` function - by default - which does not throw exceptions from the listeners.
+If the `throw` parameter is passed, it will instead use `all` which will throw exceptions from the listeners.
+
 ### Event
 
 When emitting a event, the `Event` class is used as a object which passes the data. It accepts a `data` object, which can be accessed

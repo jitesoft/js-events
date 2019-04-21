@@ -1,4 +1,5 @@
 import Listener from './Listener';
+import groupBy from '@jitesoft/group-by';
 
 /**
  * Event handler class.
@@ -30,6 +31,44 @@ export default class EventHandler {
    */
   clear () {
     this.#listeners = {};
+  }
+
+  /**
+   * Asynchronous emit function.
+   * Will batch-emit all listeners in order of priority.
+   * If any of the listeners returns false, the emit function will not send to the coming batches of listeners.
+   *
+   * @param {String} type
+   * @param {Event} event
+   * @param {Boolean} _throw Set to true for the handler to throw and fail if a plugin throws an exception.
+   * @return {Promise<void>}
+   * @since 1.3
+   */
+  async emitAsync (type, event, _throw = false) {
+    if (!(type in this.#listeners)) {
+      return Promise.resolve();
+    }
+
+    const fireOnce = [];
+    this.#listeners[type] = this.#listeners[type].filter((listener) => {
+      if (listener.once) {
+        fireOnce.push(listener);
+      }
+      return !listener.once;
+    });
+
+    const byPrio = groupBy(Array.of(...this.#listeners[type], ...fireOnce), (listener) => listener.priority);
+    const keys = Object.keys(byPrio).sort((a, b) => b - a);
+
+    for (let key of keys) {
+      if (_throw) {
+        await Promise.all(byPrio[key].map(listener => listener.invokeAsync(event)));
+      }
+      const result = await Promise.allSettled(byPrio[key].map(listener => listener.invokeAsync(event)));
+      if (result.some((res) => res.value === false)) {
+        break;
+      }
+    }
   }
 
   /**

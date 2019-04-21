@@ -81,7 +81,6 @@ describe('Tests for the EventHandler class.', () => {
       await expect(handler.emitAsync('test', new Event(), true)).rejects.toThrow('Hi!');
       expect(cb).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe('Async Emit tests.', () => {

@@ -86,7 +86,7 @@ describe('Tests for the EventHandler class.', () => {
   describe('Async Emit tests.', () => {
     test('Emit calls listeners.', async () => {
       const listener1 = jest.fn();
-      const listener2 = jest.fn();
+      const listener2 = jest.fn(async () => Promise.resolve());
 
       handler.on('test', listener1);
       handler.on('test', listener2);
@@ -106,8 +106,8 @@ describe('Tests for the EventHandler class.', () => {
 
     test('Emit does not bubble if callback returns false.', async () => {
       const listener = jest.fn(e => true);
-      const listener2 = jest.fn(e => undefined);
-      const listener3 = jest.fn(e => false);
+      const listener2 = jest.fn(async () => Promise.resolve(undefined));
+      const listener3 = jest.fn(async () => Promise.resolve(false));
 
       // Prio results: true => undefined => false => not called.
       handler.on('test', listener, 5);

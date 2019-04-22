@@ -11,9 +11,9 @@ module.exports = {
   ],
   output: {
     libraryTarget: 'umd',
-    library: 'Event',
+    library: '@jitesoft/events',
     filename: 'index.js',
-    globalObject: "typeof self !== 'undefined' ? self : this"
+    globalObject: 'this'
   },
   module: {
     rules: [

@@ -3,6 +3,7 @@
   "description": "A simple cross-env event handler with custom events.",
   "main": "dist/index.js",
   "readmeFilename": "README.md",
+  "public": true,
   "license": "MIT",
   "author": {
     "url": "https://jitesoft.com",
@@ -16,7 +17,7 @@
   "esnext": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:jitesoft/open-source/javascript/events.git"
+    "url": "https://gitlab.com/jitesoft/open-source/javascript/events"
   },
   "bugs": {
     "url": "https://gitlab.com/jitesoft/open-source/javascript/events/issues"
@@ -32,8 +33,8 @@
     "browser"
   ],
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.4.3",
-    "@jitesoft/group-by": "^1.1.0"
+    "@babel/runtime-corejs3": "^7.5.4",
+    "@jitesoft/group-by": "^1.1.1"
   },
   "jest": {
     "collectCoverage": true,
@@ -42,17 +43,17 @@
     ]
   },
   "devDependencies": {
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0",
-    "core-js": "^3.0.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "core-js": "^3.1.4",
     "cross-env": "^5.2.0",
-    "babel-loader": "^8.0.5",
-    "@babel/core": "^7.4.3",
-    "@jitesoft/babel-preset-main": "^1.2.0",
-    "@jitesoft/eslint-config": "^1.0.2",
-    "babel-jest": "^24.7.1",
-    "babel-eslint": "^10.0.1",
-    "jest": "^24.7.1",
-    "eslint": "^5.16.0"
+    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.5.4",
+    "@jitesoft/babel-preset-main": "^1.3.0",
+    "@jitesoft/eslint-config": "^1.1.0",
+    "babel-jest": "^24.8.0",
+    "babel-eslint": "^10.0.2",
+    "jest": "^24.8.0",
+    "eslint": "^6.0.1"
   }
 }

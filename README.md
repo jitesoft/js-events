@@ -1,8 +1,20 @@
 # Events
 
+[![Known Vulnerabilities](https://dev.snyk.io/test/npm/@jitesoft/events/badge.svg)](https://dev.snyk.io/test/npm/@jitesoft/events)
+[![pipeline status](https://gitlab.com/jitesoft/open-source/javascript/events/badges/master/pipeline.svg)](https://gitlab.com/jitesoft/open-source/javascript/events/commits/master)
+
 A simple event handling system for browser and node alike.
 
 ---
+
+## Installation
+
+Install will npm or yarn:
+
+```bash
+npm install @jitesoft/events
+yarn add @jitesoft/events
+```
 
 ## Classes
 

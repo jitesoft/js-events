@@ -60,7 +60,7 @@ export default class EventHandler {
     const byPrio = groupBy(Array.of(...this.#listeners[type], ...fireOnce), (listener) => listener.priority);
     const keys = Object.keys(byPrio).sort((a, b) => b - a);
 
-    for (let key of keys) {
+    for (const key of keys) {
       if (_throw) {
         await Promise.all(byPrio[key].map(listener => listener.invokeAsync(event)));
       }
@@ -109,7 +109,7 @@ export default class EventHandler {
       this.#listeners[event] = [];
     }
 
-    let id = this.#handlerId++;
+    const id = this.#handlerId++;
     this.#listeners[event].push(new Listener(handler, once, priority, id));
     this.#listeners[event].sort((a, b) => b.priority - a.priority);
     return id;
@@ -139,7 +139,7 @@ export default class EventHandler {
       return false;
     }
 
-    let c = this.#listeners[event].length;
+    const c = this.#listeners[event].length;
     this.#listeners[event] = isNaN(handler) ? ofCb(handler, this.#listeners[event]) : ofId(handler, this.#listeners[event]);
     return c !== this.#listeners[event].length;
   }

@@ -125,7 +125,7 @@ describe('Tests for the EventHandler class.', () => {
 
   describe('On tests.', () => {
     test('On adds a listener.', () => {
-      let fn = () => {};
+      const fn = () => {};
 
       expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.on('test', fn);
@@ -135,7 +135,7 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('On is called more than once on multiple events.', () => {
-      let fn = jest.fn((e) => { return e.data.a; });
+      const fn = jest.fn((e) => { return e.data.a; });
 
       handler.on('test', fn);
 
@@ -148,10 +148,10 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('On with priority sorts the events correctly.', () => {
-      let fn = jest.fn(e => 0);
-      let fn1 = jest.fn(e => 1);
-      let fn2 = jest.fn(e => 2);
-      let fn3 = jest.fn(e => 3);
+      const fn = jest.fn(e => 0);
+      const fn1 = jest.fn(e => 1);
+      const fn2 = jest.fn(e => 2);
+      const fn3 = jest.fn(e => 3);
 
       handler.on('test', fn1, 3);
       handler.on('test', fn, 4);
@@ -167,7 +167,7 @@ describe('Tests for the EventHandler class.', () => {
 
   describe('Off tests.', () => {
     test('Off removes listener by handle.', () => {
-      let handle = handler.on('test', () => {});
+      const handle = handler.on('test', () => {});
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       expect(handler.listeners['test']).toHaveLength(1);
       handler.off('test', handle);
@@ -176,7 +176,7 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('Off removes listener by callback', () => {
-      let cb = () => {};
+      const cb = () => {};
       handler.on('test', cb);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       handler.off('test', cb);
@@ -187,7 +187,7 @@ describe('Tests for the EventHandler class.', () => {
 
   describe('Once tests.', () => {
     test('Once adds a listener.', () => {
-      let fn = () => {};
+      const fn = () => {};
       expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.once('test', fn);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
@@ -196,7 +196,7 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('Once is only called once.', () => {
-      let fn = jest.fn((e) => { return e.data.a; });
+      const fn = jest.fn((e) => { return e.data.a; });
 
       handler.once('test', fn);
 
@@ -211,10 +211,10 @@ describe('Tests for the EventHandler class.', () => {
     });
 
     test('Once with priority sorts the events correctly.', () => {
-      let fn = jest.fn(() => 0);
-      let fn1 = jest.fn(() => 1);
-      let fn2 = jest.fn(() => 2);
-      let fn3 = jest.fn(() => 3);
+      const fn = jest.fn(() => 0);
+      const fn1 = jest.fn(() => 1);
+      const fn2 = jest.fn(() => 2);
+      const fn3 = jest.fn(() => 3);
 
       handler.once('test', fn1, 3);
       handler.once('test', fn, 4);

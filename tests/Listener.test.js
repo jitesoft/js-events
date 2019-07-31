@@ -32,7 +32,7 @@ describe('Tests for the Listener class.', () => {
 
   describe('Getter tests.', () => {
     test('Return value of callback', () => {
-      let listener = new Listener(() => 'abc');
+      const listener = new Listener(() => 'abc');
       expect(listener.callback).toBeInstanceOf(Function);
       expect(listener.callback()).toBe('abc');
     });
@@ -58,13 +58,13 @@ describe('Tests for the Listener class.', () => {
 
   describe('Invocation test.', () => {
     test('Event is sent to callback', () => {
-      let listener = new Listener((test) => {
+      const listener = new Listener((test) => {
         expect(test.data.a).toBe('b');
         return 'hej';
       });
 
       const fn = jest.fn((event) => listener.invoke(event));
-      fn(new Event({ 'a': 'b' }));
+      fn(new Event({ a: 'b' }));
       expect(fn).toHaveReturnedWith('hej');
     });
   });

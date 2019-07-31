@@ -3,7 +3,7 @@ import Event from '../src/Event';
 describe('Tests for the Event class.', () => {
   describe('Getter tests.', () => {
     test('Return value of data.', () => {
-      let event = new Event({ a: 'b' });
+      const event = new Event({ a: 'b' });
       expect(event.data).toEqual({ a: 'b' });
     });
 

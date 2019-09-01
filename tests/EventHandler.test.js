@@ -14,10 +14,10 @@ describe('Tests for the EventHandler class.', () => {
       handler.on('test', () => {});
       handler.on('test', () => {});
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(2);
+      expect(handler.listeners.test).toHaveLength(2);
       handler.clear();
       expect(Object.keys(handler.listeners)).toHaveLength(0);
-      expect(handler.listeners['test']).toBeUndefined();
+      expect(handler.listeners.test).toBeUndefined();
     });
   });
 
@@ -67,7 +67,7 @@ describe('Tests for the EventHandler class.', () => {
 
       handler.on('test', cb);
 
-      await expect(handler.emitAsync('test', new Event())).resolves.toBe(undefined);
+      await expect(handler.emitAsync('test', new Event())).resolves.toBeUndefined();
       expect(cb).toHaveBeenCalledTimes(1);
     });
 
@@ -130,8 +130,8 @@ describe('Tests for the EventHandler class.', () => {
       expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.on('test', fn);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(1);
-      expect(handler.listeners['test'][0].callback).toBe(fn);
+      expect(handler.listeners.test).toHaveLength(1);
+      expect(handler.listeners.test[0].callback).toBe(fn);
     });
 
     test('On is called more than once on multiple events.', () => {
@@ -158,10 +158,10 @@ describe('Tests for the EventHandler class.', () => {
       handler.on('test', fn3, 1);
       handler.on('test', fn2, 2);
 
-      expect(handler.listeners['test'][0].callback).toBe(fn);
-      expect(handler.listeners['test'][1].callback).toBe(fn1);
-      expect(handler.listeners['test'][2].callback).toBe(fn2);
-      expect(handler.listeners['test'][3].callback).toBe(fn3);
+      expect(handler.listeners.test[0].callback).toBe(fn);
+      expect(handler.listeners.test[1].callback).toBe(fn1);
+      expect(handler.listeners.test[2].callback).toBe(fn2);
+      expect(handler.listeners.test[3].callback).toBe(fn3);
     });
   });
 
@@ -169,10 +169,10 @@ describe('Tests for the EventHandler class.', () => {
     test('Off removes listener by handle.', () => {
       const handle = handler.on('test', () => {});
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(1);
+      expect(handler.listeners.test).toHaveLength(1);
       handler.off('test', handle);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(0);
+      expect(handler.listeners.test).toHaveLength(0);
     });
 
     test('Off removes listener by callback', () => {
@@ -181,7 +181,7 @@ describe('Tests for the EventHandler class.', () => {
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       handler.off('test', cb);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(0);
+      expect(handler.listeners.test).toHaveLength(0);
     });
   });
 
@@ -191,8 +191,8 @@ describe('Tests for the EventHandler class.', () => {
       expect(Object.keys(handler.listeners)).toHaveLength(0);
       handler.once('test', fn);
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(1);
-      expect(handler.listeners['test'][0].callback).toBe(fn);
+      expect(handler.listeners.test).toHaveLength(1);
+      expect(handler.listeners.test[0].callback).toBe(fn);
     });
 
     test('Once is only called once.', () => {
@@ -207,7 +207,7 @@ describe('Tests for the EventHandler class.', () => {
       expect(fn).toHaveNthReturnedWith(1, 2);
 
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(0);
+      expect(handler.listeners.test).toHaveLength(0);
     });
 
     test('Once with priority sorts the events correctly.', () => {
@@ -228,7 +228,7 @@ describe('Tests for the EventHandler class.', () => {
       expect(fn3).toHaveReturnedWith(3);
 
       expect(Object.keys(handler.listeners)).toHaveLength(1);
-      expect(handler.listeners['test']).toHaveLength(0);
+      expect(handler.listeners.test).toHaveLength(0);
     });
   });
 });

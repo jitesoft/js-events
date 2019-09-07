@@ -1,11 +1,11 @@
 # Events
 
+[![npm (scoped)](https://img.shields.io/npm/v/@jitesoft/events)](https://www.npmjs.com/package/@jitesoft/events)
 [![Known Vulnerabilities](https://dev.snyk.io/test/npm/@jitesoft/events/badge.svg)](https://dev.snyk.io/test/npm/@jitesoft/events)
 [![pipeline status](https://gitlab.com/jitesoft/open-source/javascript/events/badges/master/pipeline.svg)](https://gitlab.com/jitesoft/open-source/javascript/events/commits/master)
 [![coverage report](https://gitlab.com/jitesoft/open-source/javascript/events/badges/master/coverage.svg)](https://gitlab.com/jitesoft/open-source/javascript/events/commits/master)
 [![npm](https://img.shields.io/npm/dt/@jitesoft/events)](https://www.npmjs.com/package/@jitesoft/events)
 [![Back project](https://img.shields.io/badge/Open%20Collective-Tip%20the%20devs!-blue.svg)](https://opencollective.com/jitesoft-open-source)
-
 
 A simple event handling system for browser and node alike.
 

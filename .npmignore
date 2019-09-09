@@ -4,3 +4,4 @@ webpack.config.js
 .gitlab-ci.yml
 .eslintrc.*
 tests
+.github

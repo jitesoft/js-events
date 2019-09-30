@@ -2,10 +2,7 @@
 const Path = require('path');
 
 module.exports = {
-  mode: 'production',
-  optimization: {
-    minimize: true
-  },
+  mode: process.env.NODE_ENV,
   entry: [
     Path.join(__dirname, 'src', 'index.js')
   ],

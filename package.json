@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "eslint tests/ src/ && jest && npm audit",
-    "build": "cross-env NODE_ENV=production webpack -p"
+    "build:prod": "cross-env NODE_ENV=production webpack -p"
   },
   "esnext": "src/index.js",
   "repository": {

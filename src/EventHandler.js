@@ -43,6 +43,7 @@ export default class EventHandler {
    * @param {Boolean} _throw Set to true for the handler to throw and fail if a plugin throws an exception.
    * @return {Promise<void>}
    * @since 1.3
+   * @deprecated since 1.3.12 - In next major version, the async function will be removed, the standard emit will be async.
    */
   async emitAsync (type, event, _throw = false) {
     if (!(type in this.#listeners)) {
@@ -76,6 +77,7 @@ export default class EventHandler {
    * @param {String} type Event type.
    * @param {Event} event The event to emit.
    * @since 1.0.0
+   * @deprecated since 1.3.12 - In next major value, the emit function will be async and could break current implementations if not handled correctly.
    */
   emit (type, event) {
     if (!(type in this.#listeners)) {

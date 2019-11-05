@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "eslint tests/ src/ && jest && npm audit",
-    "build:prod": "cross-env NODE_ENV=production webpack -p"
+    "build:prod": "cross-env NODE_ENV=production webpack -p",
+    "build:dev": "cross-env NODE_ENV=development webpack"
   },
   "esnext": "src/index.js",
   "repository": {
@@ -33,7 +34,6 @@
     "browser"
   ],
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.3",
     "@jitesoft/group-by": "^1.1.10"
   },
   "jest": {
@@ -44,12 +44,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
-    "@jitesoft/babel-preset-main": "^1.6.3",
+    "@jitesoft/babel-preset-main": "^1.7.1",
     "@jitesoft/eslint-config": "^1.7.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.3.5",
+    "core-js": "^3.3.6",
     "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",

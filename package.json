@@ -16,6 +16,7 @@
     "build:dev": "cross-env NODE_ENV=development webpack"
   },
   "esnext": "src/index.js",
+  "types": "events.d.ts",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/jitesoft/open-source/javascript/events"

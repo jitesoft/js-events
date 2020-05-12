@@ -183,6 +183,10 @@ describe('Tests for the EventHandler class.', () => {
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       expect(handler.listeners.test).toHaveLength(0);
     });
+
+    test('Off returns false if no listenner exists.', () => {
+      expect(handler.off('test')).toBe(false);
+    });
   });
 
   describe('Once tests.', () => {
@@ -229,6 +233,16 @@ describe('Tests for the EventHandler class.', () => {
 
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       expect(handler.listeners.test).toHaveLength(0);
+    });
+
+    test('Once only called once on async.', async () => {
+      const fn = jest.fn(e => 5);
+      handler.once('test', fn);
+
+      await handler.emitAsync('test', {});
+      await handler.emitAsync('test', {});
+
+      return expect(fn).toHaveBeenCalledTimes(1);
     });
   });
 });

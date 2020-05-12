@@ -13,7 +13,9 @@
   "scripts": {
     "test": "eslint tests/ src/ && jest && npm audit",
     "build:prod": "cross-env NODE_ENV=production webpack -p",
-    "build:dev": "cross-env NODE_ENV=development webpack"
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "esnext": "src/index.js",
   "types": "events.d.ts",
@@ -35,7 +37,8 @@
     "browser"
   ],
   "dependencies": {
-    "@jitesoft/group-by": "^1.2.6"
+    "@jitesoft/group-by": "^1.2.6",
+    "snyk": "^1.320.2"
   },
   "jest": {
     "collectCoverage": true,
@@ -56,5 +59,6 @@
     "jest": "^26.0.1",
     "webpack": "^5.0.0-beta.16",
     "webpack-cli": "^4.0.0-beta.8"
-  }
+  },
+  "snyk": true
 }

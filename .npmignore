@@ -2,7 +2,5 @@ webpack.config.js
 .babelrc
 .gitignore
 .gitlab-ci.yml
-.eslintrc.*
+.eslintrc
 tests
-.github
-CHANGES.md

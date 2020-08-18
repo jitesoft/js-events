@@ -57,19 +57,9 @@ export default class Listener {
    * @param {Event} event
    * @return {Promise<Boolean>}
    * @since 1.3
-   * @deprecated 1.3.12 - Next major release will change the `invoke` method to be async.
    */
-  async invokeAsync (event) {
-    return this.#callback(event);
-  }
-
-  /**
-   * Invoke the listener.
-   * @param {Event} event
-   * @since 1.0.0
-   */
-  invoke (event) {
-    return this.#callback(event);
+  async invoke (event) {
+    return await this.#callback(event);
   }
 
   /**

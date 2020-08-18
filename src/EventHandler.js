@@ -43,9 +43,8 @@ export default class EventHandler {
    * @param {Boolean} _throw Set to true for the handler to throw and fail if a plugin throws an exception.
    * @return {Promise<void>}
    * @since 1.3
-   * @deprecated since 1.3.12 - In next major version, the async function will be removed, the standard emit will be async.
    */
-  async emitAsync (type, event, _throw = false) {
+  async emit (type, event, _throw = false) {
     if (!(type in this.#listeners)) {
       return Promise.resolve();
     }
@@ -70,31 +69,6 @@ export default class EventHandler {
         break;
       }
     }
-  }
-
-  /**
-   * Emits a event and invokes all handlers listening for it.
-   * @param {String} type Event type.
-   * @param {Event} event The event to emit.
-   * @since 1.0.0
-   * @deprecated since 1.3.12 - In next major value, the emit function will be async and could break current implementations if not handled correctly.
-   */
-  emit (type, event) {
-    if (!(type in this.#listeners)) {
-      return;
-    }
-
-    let stop = false;
-    this.#listeners[type] = this.#listeners[type].filter((listener) => {
-      if (stop) {
-        // Return true to make sure that fire once listeners are not invoked
-        // but the object still stay in the list.
-        return true;
-      }
-
-      stop = listener.invoke(event) === false; // Must be exactly false to count.
-      return !listener.once;
-    });
   }
 
   /**

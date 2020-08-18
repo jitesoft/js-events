@@ -22,27 +22,27 @@ describe('Tests for the EventHandler class.', () => {
   });
 
   describe('Emit tests.', () => {
-    test('Emit calls listeners.', () => {
+    test('Emit calls listeners.', async () => {
       const listener1 = jest.fn();
       const listener2 = jest.fn();
 
       handler.on('test', listener1);
       handler.on('test', listener2);
 
-      handler.emit('test', new Event());
+      await handler.emit('test', new Event());
 
       expect(listener1).toHaveBeenCalledTimes(1);
       expect(listener2).toHaveBeenCalledTimes(1);
     });
 
-    test('Emit does not call listeners on other events.', () => {
+    test('Emit does not call listeners on other events.', async () => {
       const listener = jest.fn();
       handler.on('test', listener);
-      handler.emit('not-test', new Event());
+      await handler.emit('not-test', new Event());
       expect(listener).toHaveBeenCalledTimes(0);
     });
 
-    test('Emit does not bubble if callback returns false.', () => {
+    test('Emit does not bubble if callback returns false.', async () => {
       const listener = jest.fn(e => true);
       const listener2 = jest.fn(e => undefined);
       const listener3 = jest.fn(e => false);
@@ -53,7 +53,7 @@ describe('Tests for the EventHandler class.', () => {
       handler.on('test', listener3, 3);
       handler.on('test', listener, 2);
 
-      handler.emit('test', new Event());
+      await handler.emit('test', new Event());
 
       expect(listener).toHaveBeenCalledTimes(1);
       expect(listener2).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ describe('Tests for the EventHandler class.', () => {
 
       handler.on('test', cb);
 
-      await expect(handler.emitAsync('test', new Event())).resolves.toBeUndefined();
+      await expect(handler.emit('test', new Event())).resolves.toBeUndefined();
       expect(cb).toHaveBeenCalledTimes(1);
     });
 
@@ -78,7 +78,7 @@ describe('Tests for the EventHandler class.', () => {
 
       handler.on('test', cb);
 
-      await expect(handler.emitAsync('test', new Event(), true)).rejects.toThrow('Hi!');
+      await expect(handler.emit('test', new Event(), true)).rejects.toThrow('Hi!');
       expect(cb).toHaveBeenCalledTimes(1);
     });
   });
@@ -91,7 +91,7 @@ describe('Tests for the EventHandler class.', () => {
       handler.on('test', listener1);
       handler.on('test', listener2);
 
-      await handler.emitAsync('test', new Event());
+      await handler.emit('test', new Event());
 
       expect(listener1).toHaveBeenCalledTimes(1);
       expect(listener2).toHaveBeenCalledTimes(1);
@@ -100,7 +100,7 @@ describe('Tests for the EventHandler class.', () => {
     test('Emit does not call listeners on other events.', async () => {
       const listener = jest.fn();
       handler.on('test', listener);
-      await handler.emitAsync('not-test', new Event());
+      await handler.emit('not-test', new Event());
       expect(listener).toHaveBeenCalledTimes(0);
     });
 
@@ -115,7 +115,7 @@ describe('Tests for the EventHandler class.', () => {
       handler.on('test', listener3, 3);
       handler.on('test', listener, 2);
 
-      await handler.emitAsync('test', new Event());
+      await handler.emit('test', new Event());
 
       expect(listener).toHaveBeenCalledTimes(1);
       expect(listener2).toHaveBeenCalledTimes(1);
@@ -134,13 +134,13 @@ describe('Tests for the EventHandler class.', () => {
       expect(handler.listeners.test[0].callback).toBe(fn);
     });
 
-    test('On is called more than once on multiple events.', () => {
+    test('On is called more than once on multiple events.', async () => {
       const fn = jest.fn((e) => { return e.data.a; });
 
       handler.on('test', fn);
 
-      handler.emit('test', new Event({ a: 1 }));
-      handler.emit('test', new Event({ a: 2 }));
+      await handler.emit('test', new Event({ a: 1 }));
+      await handler.emit('test', new Event({ a: 2 }));
 
       expect(fn).toHaveBeenCalledTimes(2);
       expect(fn).toHaveNthReturnedWith(1, 1);
@@ -199,13 +199,13 @@ describe('Tests for the EventHandler class.', () => {
       expect(handler.listeners.test[0].callback).toBe(fn);
     });
 
-    test('Once is only called once.', () => {
+    test('Once is only called once.', async () => {
       const fn = jest.fn((e) => { return e.data.a; });
 
       handler.once('test', fn);
 
-      handler.emit('test', new Event({ a: 2 }));
-      handler.emit('test', new Event({ a: 1 }));
+      await handler.emit('test', new Event({ a: 2 }));
+      await handler.emit('test', new Event({ a: 1 }));
 
       expect(fn).toHaveBeenCalledTimes(1);
       expect(fn).toHaveNthReturnedWith(1, 2);
@@ -214,18 +214,18 @@ describe('Tests for the EventHandler class.', () => {
       expect(handler.listeners.test).toHaveLength(0);
     });
 
-    test('Once with priority sorts the events correctly.', () => {
+    test('Once with priority sorts the events correctly.', async () => {
       const fn = jest.fn(() => 0);
       const fn1 = jest.fn(() => 1);
       const fn2 = jest.fn(() => 2);
       const fn3 = jest.fn(() => 3);
 
-      handler.once('test', fn1, 3);
-      handler.once('test', fn, 4);
-      handler.once('test', fn3, 1);
-      handler.once('test', fn2, 2);
+      await handler.once('test', fn1, 3);
+      await handler.once('test', fn, 4);
+      await handler.once('test', fn3, 1);
+      await handler.once('test', fn2, 2);
 
-      handler.emit('test', new Event());
+      await handler.emit('test', new Event());
       expect(fn).toHaveReturnedWith(0);
       expect(fn1).toHaveReturnedWith(1);
       expect(fn2).toHaveReturnedWith(2);
@@ -233,16 +233,6 @@ describe('Tests for the EventHandler class.', () => {
 
       expect(Object.keys(handler.listeners)).toHaveLength(1);
       expect(handler.listeners.test).toHaveLength(0);
-    });
-
-    test('Once only called once on async.', async () => {
-      const fn = jest.fn(e => 5);
-      handler.once('test', fn);
-
-      await handler.emitAsync('test', {});
-      await handler.emitAsync('test', {});
-
-      return expect(fn).toHaveBeenCalledTimes(1);
     });
   });
 });

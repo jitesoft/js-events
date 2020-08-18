@@ -25,25 +25,13 @@ declare class EventHandler {
      */
     clear(): void;
     /**
-     * Asynchronous emit function.
-     * Will batch-emit all listeners in order of priority.
-     * If any of the listeners returns false, the emit function will not send to the coming batches of listeners.
-     *
-     * @param type
-     * @param event
-     * @param _throw Set to true for the handler to throw and fail if a plugin throws an exception.
-     * @since 1.3
-     * @deprecated since 1.3.12 - In next major version, the async function will be removed, the standard emit will be async.
-     */
-    emitAsync(type: string, event: Event, _throw?: boolean): Promise<void>;
-    /**
      * Emits a event and invokes all handlers listening for it.
      * @param type Event type.
      * @param event The event to emit.
      * @since 1.0.0
      * @deprecated since 1.3.12 - In next major value, the emit function will be async and could break current implementations if not handled correctly.
      */
-    emit(type: string, event: Event): void;
+    emit(type: string, event: Event): Promise<void>;
     /**
      * Creates a event listener for a given event.
      * @param event Event to listen for.

@@ -24,7 +24,7 @@ describe('Tests for the Listener class.', () => {
     test('Should be called async.', async () => {
       const cb = jest.fn(async () => Promise.resolve());
       const listener = new Listener(cb);
-      await listener.invokeAsync(new Event());
+      await listener.invoke(new Event());
 
       expect(cb).toHaveBeenCalledTimes(1);
     });
@@ -57,15 +57,15 @@ describe('Tests for the Listener class.', () => {
   });
 
   describe('Invocation test.', () => {
-    test('Event is sent to callback', () => {
+    test('Event is sent to callback', async () => {
       const listener = new Listener((test) => {
         expect(test.data.a).toBe('b');
         return 'hej';
       });
 
       const fn = jest.fn((event) => listener.invoke(event));
-      fn(new Event({ a: 'b' }));
-      expect(fn).toHaveReturnedWith('hej');
+      const result = await fn(new Event({ a: 'b' }));
+      expect(result).toBe('hej');
     });
   });
 });

@@ -62,9 +62,9 @@ export default class EventHandler {
 
     for (const key of keys) {
       if (_throw) {
-        await Promise.all(byPrio[key].map(listener => listener.invokeAsync(event)));
+        await Promise.all(byPrio[key].map(listener => listener.invoke(event)));
       }
-      const result = await Promise.allSettled(byPrio[key].map(listener => listener.invokeAsync(event)));
+      const result = await Promise.allSettled(byPrio[key].map(listener => listener.invoke(event)));
       if (result.some((res) => res.value === false)) {
         break;
       }

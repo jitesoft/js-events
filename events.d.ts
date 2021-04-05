@@ -29,7 +29,6 @@ declare class EventHandler {
      * @param type Event type.
      * @param event The event to emit.
      * @since 1.0.0
-     * @deprecated since 1.3.12 - In next major value, the emit function will be async and could break current implementations if not handled correctly.
      */
     emit(type: string, event: Event): Promise<void>;
     /**

@@ -1,4 +1,9 @@
 {
-  "parser": "@babel/eslint-parser",
-  "extends": "@jitesoft"
+  "extends": "@jitesoft",
+  "overrides": [
+    {
+      "files": ["tests/*.js"],
+      "extends": "@jitesoft/eslint-config/jest"
+    }
+  ]
 }

@@ -205,6 +205,7 @@ describe('Tests for the EventHandler class.', () => {
       handler.once('test', fn);
 
       await handler.emit('test', new Event({ a: 2 }));
+      await handler.emit('test', new Event({ a: 7 }, this));
       await handler.emit('test', new Event({ a: 1 }));
 
       expect(fn).toHaveBeenCalledTimes(1);
@@ -220,10 +221,10 @@ describe('Tests for the EventHandler class.', () => {
       const fn2 = jest.fn(() => 2);
       const fn3 = jest.fn(() => 3);
 
-      await handler.once('test', fn1, 3);
-      await handler.once('test', fn, 4);
-      await handler.once('test', fn3, 1);
-      await handler.once('test', fn2, 2);
+      handler.once('test', fn1, 3);
+      handler.once('test', fn, 4);
+      handler.once('test', fn3, 1);
+      handler.once('test', fn2, 2);
 
       await handler.emit('test', new Event());
       expect(fn).toHaveReturnedWith(0);

@@ -1,5 +1,5 @@
 import Listener from './Listener';
-import groupBy from '@jitesoft/group-by';
+import groupBy from './GroupBy';
 
 /**
  * Event handler class.

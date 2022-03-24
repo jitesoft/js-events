@@ -3,4 +3,5 @@ webpack.config.js
 .gitignore
 .gitlab-ci.yml
 .eslintrc
+.github
 tests

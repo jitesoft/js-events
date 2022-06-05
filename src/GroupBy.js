@@ -8,17 +8,15 @@
  */
 export default (list, keySelector) => {
   const result = {};
-  const count = list.length;
   let val = null;
 
-  for (let i = 0; i < count; i++) {
-    val = keySelector(list[i]);
-
+  for (const v of list) {
+    val = keySelector(v);
     if (result[val] === undefined) {
       result[val] = [];
     }
 
-    result[val].push(list[i]);
+    result[val].push(v);
   }
 
   return result;

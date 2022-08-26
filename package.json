@@ -42,20 +42,20 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.18.3"
+    "@babel/runtime-corejs3": "^7.18.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/eslint-parser": "^7.18.2",
-    "@jitesoft/babel-preset-main": "^3.0.1",
-    "@jitesoft/eslint-config": "^4.1.2",
-    "babel-jest": "^28.1.0",
+    "@babel/core": "^7.18.13",
+    "@babel/eslint-parser": "^7.18.9",
+    "@jitesoft/babel-preset-main": "^3.0.5",
+    "@jitesoft/eslint-config": "^4.1.6",
+    "babel-jest": "^29.0.0",
     "babel-loader": "^8.2.5",
-    "core-js": "^3.22.8",
+    "core-js": "^3.25.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.17.0",
-    "jest": "^28.1.0",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2"
+    "eslint": "^8.22.0",
+    "jest": "^29.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

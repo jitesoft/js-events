@@ -12,7 +12,7 @@
     "name": "Johannes Tegnér"
   },
   "scripts": {
-    "test": "eslint tests/ src/ && jest && npm audit",
+    "test": "jest",
     "build:prod": "cross-env NODE_ENV=production webpack",
     "build:dev": "cross-env NODE_ENV=development webpack"
   },
